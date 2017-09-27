@@ -14,7 +14,9 @@ class OneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.white
+        
         self.imageView = UIImageView(frame: CGRect(x: 100, y: 200, width: 200, height: 200))
         self.imageView.image = UIImage(named: "11111")
         self.imageView.zoomImage()
