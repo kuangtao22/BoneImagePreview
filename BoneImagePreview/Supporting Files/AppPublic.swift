@@ -24,11 +24,11 @@ class AppPublic: NSObject {
     static func checkColorWithAlpha(hexString: String, alpha: CGFloat) -> UIColor {
         var cString: String = hexString.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         
-        if cString.characters.count < 6 {return UIColor.black}
+        if cString.count < 6 {return UIColor.black}
         if cString.hasPrefix("0X") {cString = cString.substring(from: cString.index(cString.startIndex, offsetBy: 2))}
         if cString.hasPrefix("#") {cString = cString.substring(from: cString.index(cString.startIndex, offsetBy: 1))}
         
-        if cString.characters.count != 6 {return UIColor.black}
+        if cString.count != 6 {return UIColor.black}
         
         var range: NSRange = NSMakeRange(0, 2)
         let rString = (cString as NSString).substring(with: range)

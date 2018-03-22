@@ -10,6 +10,8 @@ import UIKit
 
 class BoneZoom: UIView {
     
+    weak var delegate: BoneZoomDelegate?
+    
     // 最大的缩放比例
     fileprivate var maxScale: CGFloat {
         get {
@@ -34,15 +36,13 @@ class BoneZoom: UIView {
         self.init(frame: UIScreen.main.bounds)
         // 保存原始frame
         self.oldImage = imageView
-        
+
         // 隐藏状态栏
         UIApplication.shared.isStatusBarHidden = true
         self.navView.titleLabel.text = "预览"
         self.addSubview(self.scrollView)
 
         self.newImage = UIImageView(image: imageView.image)
-
-        
         self.newImage.frame = CGRect(origin: self.oldPoint, size: self.oldImage.bounds.size)
 
         self.scrollView.addSubview(self.newImage)
@@ -50,7 +50,7 @@ class BoneZoom: UIView {
         // 设置手势单击
         let oneTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction(sender:)))
         oneTapGesture.numberOfTapsRequired = 1
-        self.scrollView.addGestureRecognizer(oneTapGesture)
+        self.addGestureRecognizer(oneTapGesture)
         
         // 设置手势双击
         let twoTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction(sender:)))
@@ -68,20 +68,16 @@ class BoneZoom: UIView {
         let frame = superview?.convert(self.oldImage.frame, to: view)
         return frame?.origin ?? CGPoint.zero
     }()
-    
+
     fileprivate lazy var navView: BoneZoomNav = {
         let navView = BoneZoomNav()
-        navView.close(cellback: { (button) in
-            if button.tag == 0 {
-                self.hideAnimate()
-            } else if button.tag == 1 {
-                self.saveAction()
-            }
-        })
+        navView.saveBtn.addTarget(self, action: #selector(self.saveAction), for: UIControlEvents.touchUpInside)
+        navView.closeBtn.addTarget(self, action: #selector(self.hideAnimate), for: UIControlEvents.touchUpInside)
         navView.isShow = true
         return navView
     }()
 
+    
     /// 滚动视图
     fileprivate lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: self.bounds)
@@ -127,6 +123,7 @@ class BoneZoom: UIView {
             self.oldImage.isHidden = false
             self.scale = self.minScale
             self.scrollView.removeFromSuperview()
+            self.navView.removeFromSuperview()
             self.removeFromSuperview()
             
         }
@@ -135,19 +132,32 @@ class BoneZoom: UIView {
     /// 保存图片到相册
     @objc private func saveAction() {
         let item: [MMPopupItem] = [MMItemMake("保存图片到相册", .highlight, { (index) in
-            if let image = self.newImage.image {
+            if let image = self.delegate?.getZoomImage() {
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+            } else if let image = self.newImage.image {
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(image:didFinishSavingWithError:contextInfo:)), nil)
+            } else {
+                BoneShowHUD.shared.show(status: "保存失败", showType: .Error)
             }
         })]
         BoneShowHUD.shared.sheet(title: "操作", items: item)
+    }
+    
+    fileprivate var isNavShow: Bool {
+        get {
+            return self.navView.transform.ty == 0
+        }
+        set {
+            self.navView.animate(isShow: newValue)
+        }
     }
     
     // 手势点击事件
     @objc private func tapGestureAction(sender: UITapGestureRecognizer) {
         // 显示隐藏导航
         if sender.numberOfTapsRequired == 1 {
-            self.navView.isShow = !self.navView.isShow
-            
+            self.navView.isShow = !self.isNavShow
+
         } else if sender.numberOfTapsRequired > 1 {
             self.touchX = sender.location(in: sender.view).x
             self.touchY = sender.location(in: sender.view).y
@@ -163,12 +173,16 @@ class BoneZoom: UIView {
     
     // 保存图片
     @objc private func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:AnyObject) {
-        
+        self.delegate?.boneZoom(self, SaveImageToAlbums: image, status: (error == nil))
         if error != nil {
             BoneShowHUD.shared.show(status: "保存失败", showType: .Error)
         } else {
             BoneShowHUD.shared.show(status: "保存成功", showType: .Info)
         }
+    }
+    
+    deinit {
+        print("销毁")
     }
 }
 

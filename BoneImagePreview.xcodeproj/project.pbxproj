@@ -53,6 +53,7 @@
 		7E35E0C81EDABDD100203352 /* BoneZoomNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E35E0C31EDABDD100203352 /* BoneZoomNav.swift */; };
 		7E35E0C91EDABDD100203352 /* BoneZoomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E35E0C41EDABDD100203352 /* BoneZoomTabbar.swift */; };
 		7E35E0CA1EDABDD100203352 /* IconBoneZoom.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7E35E0C51EDABDD100203352 /* IconBoneZoom.bundle */; };
+		7E816AE120639F8800B186C1 /* BoneZoomDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E816AE020639F8800B186C1 /* BoneZoomDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		7E35E0C31EDABDD100203352 /* BoneZoomNav.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoneZoomNav.swift; sourceTree = "<group>"; };
 		7E35E0C41EDABDD100203352 /* BoneZoomTabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoneZoomTabbar.swift; sourceTree = "<group>"; };
 		7E35E0C51EDABDD100203352 /* IconBoneZoom.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IconBoneZoom.bundle; sourceTree = "<group>"; };
+		7E816AE020639F8800B186C1 /* BoneZoomDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoneZoomDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +342,7 @@
 				7E35E0C11EDABDD100203352 /* BoneZoom+Extension.swift */,
 				7E35E0C21EDABDD100203352 /* BoneZoom.swift */,
 				7E35E0C31EDABDD100203352 /* BoneZoomNav.swift */,
+				7E816AE020639F8800B186C1 /* BoneZoomDelegate.swift */,
 				7E35E0C41EDABDD100203352 /* BoneZoomTabbar.swift */,
 				7E35E0C51EDABDD100203352 /* IconBoneZoom.bundle */,
 			);
@@ -409,7 +412,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "鱼骨头";
 				TargetAttributes = {
 					7E0A61441ED91DF70091186D = {
@@ -490,6 +493,7 @@
 				7E0A61B21ED96F6E0091186D /* BoneDatasSheet.swift in Sources */,
 				7E0A61C31ED96F6E0091186D /* MMPopupView.m in Sources */,
 				7E0A61D21ED970320091186D /* SVProgressAnimatedView.m in Sources */,
+				7E816AE120639F8800B186C1 /* BoneZoomDelegate.swift in Sources */,
 				7E0A61DC1ED972300091186D /* BoneShowHUD.swift in Sources */,
 				7E35E0B91EDAAA2200203352 /* UIView+AddClickedEvent.m in Sources */,
 				7E0A61C51ED96F6E0091186D /* MMSheetView.m in Sources */,
@@ -587,7 +591,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -595,7 +601,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -636,7 +646,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -644,7 +656,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -675,7 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TQ57V7K726;
 				INFOPLIST_FILE = BoneImagePreview/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yuxutao.BoneImagePreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -690,7 +706,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TQ57V7K726;
 				INFOPLIST_FILE = BoneImagePreview/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yuxutao.BoneImagePreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";

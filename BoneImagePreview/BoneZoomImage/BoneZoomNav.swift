@@ -8,37 +8,19 @@
 
 import UIKit
 
-extension BoneZoomNav {
-    
-    /// 关闭事件
-    ///
-    /// - Parameter cellback: 回调
-    public func close(cellback: @escaping TouchUpInside) {
-        self.onClick = cellback
-    }
-}
-
 class BoneZoomNav: UIView {
     
     /// 标题
-    public var titleLabel: UILabel!
+    var titleLabel: UILabel!
     
     /// 显示/隐藏
-    public var isShow: Bool {
-        get {
-            return self.transform.ty == 0
-        }
-        set {
-            self.animate(isShow: newValue)
-        }
+    var isShow: Bool {
+        get { return self.transform.ty == 0 }
+        set { self.animate(isShow: newValue) }
     }
     
-    typealias TouchUpInside = (_ button: UIButton) -> Void
-    fileprivate var onClick: TouchUpInside?
     private var statusBar_height: CGFloat = UIApplication.shared.statusBarFrame.size.height
     private let screen_nav_height: CGFloat = 50 // 导航高度
-    
-    
     
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: screen_width, height: 0))
@@ -67,21 +49,19 @@ class BoneZoomNav: UIView {
     }
     
     /// 关闭按钮
-    private lazy var closeBtn: UIButton = {
+    lazy var closeBtn: UIButton = {
         let origin = CGPoint(x: 15, y: (self.navView.frame.height - 30) / 2)
         let btn = UIButton(frame: CGRect(origin: origin, size: CGSize(width: 30, height: 30)))
         btn.setImage(UIImage(named: "IconBoneZoom.bundle/close"), for: UIControlState.normal)
         btn.tag = 0
-        btn.addTarget(self, action: #selector(navAction(button:)), for: UIControlEvents.touchUpInside)
         return btn
     }()
 
     /// 保存按钮
-    private lazy var saveBtn: UIButton = {
+    lazy var saveBtn: UIButton = {
         let origin = CGPoint(x: screen_width - 15 - 30, y: (self.navView.frame.height - 30) / 2)
         let btn = UIButton(frame: CGRect(origin: origin, size: CGSize(width: 30, height: 30)))
         btn.setImage(UIImage(named: "IconBoneZoom.bundle/save"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(navAction(button:)), for: UIControlEvents.touchUpInside)
         btn.tag = 1
         return btn
     }()
@@ -98,16 +78,16 @@ class BoneZoomNav: UIView {
         return view
     }()
     
-    /// 关闭事件/保存图片
-    @objc private func navAction(button: UIButton) {
-        self.onClick?(button)
-    }
+//    /// 关闭事件/保存图片
+//    @objc private func navAction(button: UIButton) {
+//        self.onClick?(button)
+//    }
    
     
     /// 显示/隐藏动画
     ///
     /// - Parameter isShow: <#isShow description#>
-    private func animate(isShow: Bool) {
+    func animate(isShow: Bool) {
         UIView.animate(withDuration: 0.2) {
             if isShow {
                 self.transform = CGAffineTransform.identity
